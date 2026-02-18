@@ -1,13 +1,18 @@
+import { useState } from "preact/hooks";
 import { validate } from "../../state/validation";
-import { serializeToJson } from "../../state/serializer";
+import { serialize, serializeToJson } from "../../state/serializer";
 import { DEFAULT_APP_STATE } from "../../state/defaults";
 import { highlightJson } from "../../lib/jsonHighlight";
 import { downloadJson } from "../../lib/download";
 import { CopyButton } from "../shared/CopyButton";
+import { ExportLocationPicker } from "./ExportLocationPicker";
 import type { StepProps } from "../../app";
 
 export function ReviewStep({ state, dispatch }: StepProps) {
+  const [downloadFilename, setDownloadFilename] = useState("mcp_config.json");
+
   const result = validate(state);
+  const { mcpConfig } = serialize(state);
   const { mcpConfigJson, environmentsConfigJson } = serializeToJson(state);
 
   const errors = result.errors.filter((e) => e.severity === "error");
@@ -16,6 +21,7 @@ export function ReviewStep({ state, dispatch }: StepProps) {
   return (
     <div class="step step-review">
       <h2>Review and Export</h2>
+      <p>Review your configuration and export it to your MCP client.</p>
 
       {(errors.length > 0 || warnings.length > 0) && (
         <div class="validation-summary">
@@ -42,16 +48,21 @@ export function ReviewStep({ state, dispatch }: StepProps) {
         </div>
       )}
 
+      <ExportLocationPicker
+        mcpConfig={mcpConfig}
+        onFilenameChange={setDownloadFilename}
+      />
+
       <div class="review-panels">
         <div class="review-panel">
           <div class="review-panel-header">
-            <h3>mcp_config.json</h3>
+            <h3>{downloadFilename}</h3>
             <div class="review-panel-actions">
               <CopyButton text={mcpConfigJson} label="Copy" />
               <button
                 type="button"
                 class="btn btn-secondary btn-icon"
-                onClick={() => downloadJson(mcpConfigJson, "mcp_config.json")}
+                onClick={() => downloadJson(mcpConfigJson, downloadFilename)}
               >
                 Download
               </button>

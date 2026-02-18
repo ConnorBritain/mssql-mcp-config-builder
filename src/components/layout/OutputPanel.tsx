@@ -25,6 +25,10 @@ export function OutputPanel({ state }: OutputPanelProps) {
 
   return (
     <div class="output-panel">
+      <div class="output-panel-header">
+        <span class="live-dot" />
+        <h3>Live Preview</h3>
+      </div>
       <div class="tab-bar">
         <button
           type="button"

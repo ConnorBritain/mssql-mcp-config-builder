@@ -10,6 +10,7 @@ export function ModeSelect({ state, dispatch }: StepProps) {
   return (
     <div class="step step-mode">
       <h2>Choose Setup Mode</h2>
+      <p>Select how you want to configure your MSSQL MCP server.</p>
 
       <div class="mode-cards">
         <button
@@ -17,6 +18,14 @@ export function ModeSelect({ state, dispatch }: StepProps) {
           class={`mode-card${state.mode === "quick" ? " mode-card--selected" : ""}`}
           onClick={() => selectMode("quick")}
         >
+          <span class="mode-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+              <ellipse cx="12" cy="10" rx="4" ry="2" />
+            </svg>
+          </span>
           <h3>Quick Setup</h3>
           <p>Configure a single database connection with minimal options.</p>
           <ul>
@@ -31,6 +40,15 @@ export function ModeSelect({ state, dispatch }: StepProps) {
           class={`mode-card${state.mode === "multi" ? " mode-card--selected" : ""}`}
           onClick={() => selectMode("multi")}
         >
+          <span class="mode-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+              <line x1="15" y1="10" x2="21" y2="10" />
+              <line x1="18" y1="7" x2="18" y2="13" />
+            </svg>
+          </span>
           <h3>Multi-Environment</h3>
           <p>Configure multiple database connections with full governance controls.</p>
           <ul>

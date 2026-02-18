@@ -165,6 +165,71 @@ export const DEFAULT_APP_STATE: AppState = {
 };
 
 // ---------------------------------------------------------------------------
+// MCP Client Config Paths
+// ---------------------------------------------------------------------------
+
+export type McpClientId = "cursor" | "windsurf" | "claude-desktop" | "vscode";
+
+export interface McpClientConfig {
+  id: McpClientId;
+  label: string;
+  icon: string;
+  filename: string;
+  paths: {
+    mac?: string;
+    windows?: string;
+    linux?: string;
+  };
+}
+
+export const MCP_CLIENT_CONFIGS: McpClientConfig[] = [
+  {
+    id: "cursor",
+    label: "Cursor",
+    icon: "\u{1F5A5}",
+    filename: "mcp.json",
+    paths: {
+      mac: "~/.cursor/mcp.json",
+      windows: "%APPDATA%\\Cursor\\User\\mcp.json",
+      linux: "~/.config/cursor/mcp.json",
+    },
+  },
+  {
+    id: "windsurf",
+    label: "Windsurf",
+    icon: "\u{1F3C4}",
+    filename: "mcp_config.json",
+    paths: {
+      mac: "~/.codeium/windsurf/mcp_config.json",
+      windows: "%APPDATA%\\Codeium\\Windsurf\\mcp_config.json",
+      linux: "~/.codeium/windsurf/mcp_config.json",
+    },
+  },
+  {
+    id: "claude-desktop",
+    label: "Claude Desktop",
+    icon: "\u{1F4AC}",
+    filename: "claude_desktop_config.json",
+    paths: {
+      mac: "~/Library/Application Support/Claude/claude_desktop_config.json",
+      windows: "%APPDATA%\\Claude\\claude_desktop_config.json",
+      linux: "~/.config/claude/claude_desktop_config.json",
+    },
+  },
+  {
+    id: "vscode",
+    label: "VS Code",
+    icon: "\u{1F4DD}",
+    filename: "mcp.json",
+    paths: {
+      mac: "~/.vscode/mcp.json",
+      windows: "%APPDATA%\\Code\\User\\mcp.json",
+      linux: "~/.config/Code/User/mcp.json",
+    },
+  },
+];
+
+// ---------------------------------------------------------------------------
 // Wizard step metadata
 // ---------------------------------------------------------------------------
 

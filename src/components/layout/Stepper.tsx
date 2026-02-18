@@ -21,12 +21,19 @@ export function Stepper({ steps, currentStep, onStepClick }: StepperProps) {
           .filter(Boolean)
           .join(" ");
 
+        const connectorClass = [
+          "step-connector",
+          i <= currentStep ? "completed" : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
+
         return (
           <>
-            {i > 0 && <div class="step-connector" />}
+            {i > 0 && <div class={connectorClass} />}
             <div
               class="step"
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor: isClickable ? "pointer" : "default" }}
+              style={{ cursor: isClickable ? "pointer" : "default" }}
               onClick={() => isClickable && onStepClick(i)}
             >
               <div class={circleClass}>
