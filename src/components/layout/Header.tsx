@@ -23,6 +23,9 @@ export function Header({ simpleMode, onSimpleModeChange, onImportClick }: Header
           </div>
         </div>
         <div class="header-actions">
+          <button type="button" class="btn btn-header-secondary" onClick={onImportClick}>
+            Import
+          </button>
           <label class="toggle-switch toggle-switch--dark">
             <input
               type="checkbox"
@@ -32,9 +35,6 @@ export function Header({ simpleMode, onSimpleModeChange, onImportClick }: Header
             <span class="toggle-track" />
             <span class="toggle-label">{simpleMode ? "Simple" : "Advanced"}</span>
           </label>
-          <button type="button" class="btn btn-header-secondary" onClick={onImportClick}>
-            Import
-          </button>
         </div>
       </div>
     </header>
