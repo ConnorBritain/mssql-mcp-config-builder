@@ -10,6 +10,7 @@ import type { StepProps } from "../../app";
 
 export function ReviewStep({ state, dispatch }: StepProps) {
   const [downloadFilename, setDownloadFilename] = useState("mcp_config.json");
+  const [showConfig, setShowConfig] = useState(false);
 
   const result = validate(state);
   const { mcpConfig } = serialize(state);
@@ -21,7 +22,9 @@ export function ReviewStep({ state, dispatch }: StepProps) {
   return (
     <div class="step step-review">
       <h2>Review and Export</h2>
-      <p>Review your configuration and export it to your MCP client.</p>
+      <p class="section-intro">
+        Your configuration is ready. Choose your MCP client below, then download or copy the config files.
+      </p>
 
       {(errors.length > 0 || warnings.length > 0) && (
         <div class="validation-summary">
@@ -53,49 +56,72 @@ export function ReviewStep({ state, dispatch }: StepProps) {
         onFilenameChange={setDownloadFilename}
       />
 
-      <div class="review-panels">
-        <div class="review-panel">
-          <div class="review-panel-header">
-            <h3>{downloadFilename}</h3>
-            <div class="review-panel-actions">
-              <CopyButton text={mcpConfigJson} label="Copy" />
+      <div class="review-download-bar">
+        <div class="review-download-item">
+          <span class="review-download-name">{downloadFilename}</span>
+          <div class="review-download-actions">
+            <CopyButton text={mcpConfigJson} label="Copy" />
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              onClick={() => downloadJson(mcpConfigJson, downloadFilename)}
+            >
+              Download
+            </button>
+          </div>
+        </div>
+
+        {environmentsConfigJson && (
+          <div class="review-download-item">
+            <span class="review-download-name">environments.json</span>
+            <div class="review-download-actions">
+              <CopyButton text={environmentsConfigJson} label="Copy" />
               <button
                 type="button"
-                class="btn btn-secondary btn-icon"
-                onClick={() => downloadJson(mcpConfigJson, downloadFilename)}
+                class="btn btn-primary btn-sm"
+                onClick={() => downloadJson(environmentsConfigJson, "environments.json")}
               >
                 Download
               </button>
             </div>
           </div>
-          <pre
-            class="json-preview"
-            dangerouslySetInnerHTML={{ __html: highlightJson(mcpConfigJson) }}
-          />
-        </div>
+        )}
+      </div>
 
-        {environmentsConfigJson && (
+      <button
+        type="button"
+        class="btn btn-link"
+        onClick={() => setShowConfig(!showConfig)}
+        style={{ marginBottom: "12px" }}
+      >
+        {showConfig ? "Hide config preview" : "View config preview"}
+      </button>
+
+      {showConfig && (
+        <div class="review-panels">
           <div class="review-panel">
             <div class="review-panel-header">
-              <h3>environments.json</h3>
-              <div class="review-panel-actions">
-                <CopyButton text={environmentsConfigJson} label="Copy" />
-                <button
-                  type="button"
-                  class="btn btn-secondary btn-icon"
-                  onClick={() => downloadJson(environmentsConfigJson, "environments.json")}
-                >
-                  Download
-                </button>
-              </div>
+              <h3>{downloadFilename}</h3>
             </div>
             <pre
               class="json-preview"
-              dangerouslySetInnerHTML={{ __html: highlightJson(environmentsConfigJson) }}
+              dangerouslySetInnerHTML={{ __html: highlightJson(mcpConfigJson) }}
             />
           </div>
-        )}
-      </div>
+
+          {environmentsConfigJson && (
+            <div class="review-panel">
+              <div class="review-panel-header">
+                <h3>environments.json</h3>
+              </div>
+              <pre
+                class="json-preview"
+                dangerouslySetInnerHTML={{ __html: highlightJson(environmentsConfigJson) }}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       <button
         type="button"

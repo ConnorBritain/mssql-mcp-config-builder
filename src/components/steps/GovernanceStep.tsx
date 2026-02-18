@@ -7,10 +7,21 @@ import { ToolPicker } from "./ToolPicker";
 
 type ToolRestriction = "none" | "allow" | "deny";
 
+function deriveToolRestriction(env: { allowedTools: string[]; deniedTools: string[] }): ToolRestriction {
+  if (env.allowedTools.length > 0) return "allow";
+  if (env.deniedTools.length > 0) return "deny";
+  return "none";
+}
+
 export function GovernanceStep({ state, dispatch }: StepProps) {
   const [selectedEnvId, setSelectedEnvId] = useState(state.environments[0].id);
 
   const env = state.environments.find((e) => e.id === selectedEnvId) ?? state.environments[0];
+
+  // Use local state so radio selection persists even when arrays are empty
+  const [toolRestriction, setToolRestrictionLocal] = useState<ToolRestriction>(
+    () => deriveToolRestriction(env),
+  );
 
   function update(field: string, value: unknown) {
     if (state.mode === "multi" && selectedEnvId === "__all__") {
@@ -22,10 +33,8 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
     }
   }
 
-  const toolRestriction: ToolRestriction =
-    env.allowedTools.length > 0 ? "allow" : env.deniedTools.length > 0 ? "deny" : "none";
-
   function setToolRestriction(mode: ToolRestriction) {
+    setToolRestrictionLocal(mode);
     if (mode === "none") {
       update("allowedTools", []);
       update("deniedTools", []);
@@ -47,7 +56,12 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
         <FieldGroup label="Configure for">
           <select
             value={selectedEnvId}
-            onChange={(e) => setSelectedEnvId((e.target as HTMLSelectElement).value)}
+            onChange={(e) => {
+              const id = (e.target as HTMLSelectElement).value;
+              setSelectedEnvId(id);
+              const target = state.environments.find((env) => env.id === id);
+              if (target) setToolRestrictionLocal(deriveToolRestriction(target));
+            }}
           >
             <option value="__all__">All environments</option>
             {state.environments.map((e) => (
