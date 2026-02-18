@@ -118,6 +118,19 @@ export function App() {
         onClose={() => dispatch({ type: "SET_IMPORT_DIALOG_OPEN", open: false })}
         onImport={handleImport}
       />
+      <footer class="app-footer">
+        <div class="footer-links">
+          <span>&copy; 2026 Connor England</span>
+          <span class="footer-separator">|</span>
+          <a href="https://github.com/ConnorBritain/mssql-mcp-server" target="_blank" rel="noopener noreferrer">
+            mssql-mcp-server
+          </a>
+          <span class="footer-separator">|</span>
+          <a href="https://github.com/ConnorBritain/mssql-mcp-config-builder" target="_blank" rel="noopener noreferrer">
+            Config Builder Source
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }
