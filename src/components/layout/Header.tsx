@@ -7,16 +7,13 @@ interface HeaderProps {
 export function Header({ simpleMode, onSimpleModeChange, onImportClick }: HeaderProps) {
   return (
     <header class="header">
-      <div class="header-accent" />
       <div class="header-content">
         <div class="header-left">
-          <svg class="header-icon" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="12" cy="5.5" rx="8" ry="2.5" fill="rgba(37,99,235,0.15)" stroke="currentColor" stroke-width="1.5" />
-            <path d="M4 5.5v4c0 1.38 3.58 2.5 8 2.5s8-1.12 8-2.5v-4" stroke="currentColor" stroke-width="1.5" />
-            <path d="M4 9.5v4c0 1.38 3.58 2.5 8 2.5s8-1.12 8-2.5v-4" stroke="currentColor" stroke-width="1.5" />
-            <path d="M4 13.5v4c0 1.38 3.58 2.5 8 2.5s8-1.12 8-2.5v-4" stroke="currentColor" stroke-width="1.5" />
-            <circle cx="18" cy="17" r="4" fill="var(--color-primary)" stroke="none" />
-            <path d="M16.5 17h3M18 15.5v3" stroke="white" stroke-width="1.5" />
+          {/* MCP logo mark (official Model Context Protocol icon) */}
+          <svg class="header-icon" width="30" height="30" viewBox="15 20 155 175" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 97.8528L92.8823 29.9706C102.255 20.598 117.451 20.598 126.823 29.9706C136.196 39.3431 136.196 54.5391 126.823 63.9117L75.5581 115.177" stroke="#93c5fd" stroke-width="12" stroke-linecap="round"/>
+            <path d="M76.2653 114.47L126.823 63.9117C136.196 54.5391 151.392 54.5391 160.765 63.9117L161.118 64.2652C170.491 73.6378 170.491 88.8338 161.118 98.2063L99.7248 159.6C96.6006 162.724 96.6006 167.789 99.7248 170.913L112.331 183.52" stroke="#86efac" stroke-width="12" stroke-linecap="round"/>
+            <path d="M109.853 46.9411L59.6482 97.1457C50.2757 106.518 50.2757 121.714 59.6482 131.087C69.0208 140.459 84.2168 140.459 93.5894 131.087L143.794 80.8822" stroke="#c084fc" stroke-width="12" stroke-linecap="round"/>
           </svg>
           <div class="header-text">
             <h1>MSSQL MCP Config Builder</h1>
@@ -26,7 +23,7 @@ export function Header({ simpleMode, onSimpleModeChange, onImportClick }: Header
           </div>
         </div>
         <div class="header-actions">
-          <label class="toggle-switch">
+          <label class="toggle-switch toggle-switch--dark">
             <input
               type="checkbox"
               checked={!simpleMode}
@@ -35,7 +32,7 @@ export function Header({ simpleMode, onSimpleModeChange, onImportClick }: Header
             <span class="toggle-track" />
             <span class="toggle-label">{simpleMode ? "Simple" : "Advanced"}</span>
           </label>
-          <button type="button" class="btn btn-secondary btn-icon" onClick={onImportClick}>
+          <button type="button" class="btn btn-header-secondary" onClick={onImportClick}>
             Import
           </button>
         </div>
