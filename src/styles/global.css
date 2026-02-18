@@ -139,11 +139,15 @@ body {
   padding: 20px 0;
 }
 
-.step {
+.stepper .step {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 8px;
+}
+
+.form-panel > .step {
+  text-align: left;
 }
 
 .step-circle {
@@ -194,7 +198,7 @@ body {
   background: var(--color-success);
 }
 
-.step-label {
+.stepper .step-label {
   font-size: 0.7rem;
   color: var(--color-text-secondary);
   margin-top: 6px;
