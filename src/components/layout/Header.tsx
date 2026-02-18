@@ -16,7 +16,7 @@ export function Header({ simpleMode, onSimpleModeChange, onImportClick }: Header
             <path d="M109.853 46.9411L59.6482 97.1457C50.2757 106.518 50.2757 121.714 59.6482 131.087C69.0208 140.459 84.2168 140.459 93.5894 131.087L143.794 80.8822" stroke="#c084fc" stroke-width="12" stroke-linecap="round"/>
           </svg>
           <div class="header-text">
-            <h1>MSSQL MCP Config Builder</h1>
+            <h1>MSSQL MCP <span class="header-title-break">Config Builder</span></h1>
             <span class="header-subtitle">
               Visual configuration wizard for the MSSQL MCP ecosystem
             </span>

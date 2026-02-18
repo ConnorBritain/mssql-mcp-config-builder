@@ -110,6 +110,10 @@ body {
   color: #f1f5f9;
 }
 
+.header-title-break {
+  display: inline;
+}
+
 .header-text .header-subtitle {
   display: block;
   margin: 2px 0 0;
@@ -1652,35 +1656,38 @@ textarea {
     max-height: none;
   }
 
-  /* Header: wrap to two rows */
+  /* Header: keep logo+title left, stack actions right */
   .header-content {
-    flex-wrap: wrap;
-    padding: 12px 16px;
+    padding: 10px 14px;
     gap: 8px;
   }
 
   .header-left {
-    flex: 1 1 100%;
     gap: 8px;
+    min-width: 0;
   }
 
-  .header-left .header-icon svg {
-    width: 28px;
-    height: 28px;
+  .header-left .header-icon {
+    align-self: center;
   }
 
   .header-text h1 {
     font-size: 1.05rem;
   }
 
+  .header-title-break {
+    display: block;
+  }
+
   .header-text .header-subtitle {
-    font-size: 0.75rem;
+    display: none;
   }
 
   .header-actions {
-    flex: 1 1 100%;
-    justify-content: flex-end;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
   }
 
   /* Stepper: compact */
@@ -1734,15 +1741,11 @@ textarea {
   }
 
   .header-content {
-    padding: 10px 12px;
+    padding: 8px 10px;
   }
 
   .header-text h1 {
     font-size: 0.95rem;
-  }
-
-  .header-text .header-subtitle {
-    display: none;
   }
 
   .stepper {
