@@ -16,44 +16,17 @@ function detectOS(): "mac" | "windows" | "linux" {
   return "linux";
 }
 
-/* Simple recognizable SVG icons for each client */
+const CLIENT_LOGOS: Record<McpClientId, string> = {
+  cursor: "logos/cursor.png",
+  windsurf: "logos/Windsurf-black-symbol.svg",
+  "claude-desktop": "logos/claude.png",
+  vscode: "logos/visual-studio-code-1.svg",
+};
+
 function ClientIcon({ id }: { id: McpClientId }) {
-  switch (id) {
-    case "cursor":
-      // Cursor-style: angled bracket cursor
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="2" width="20" height="20" rx="4" fill="#000" />
-          <path d="M8 7l8 5-8 5V7z" fill="#fff" />
-        </svg>
-      );
-    case "windsurf":
-      // Wave/sail icon
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="2" width="20" height="20" rx="4" fill="#0EA5E9" />
-          <path d="M7 17c2-2 4-6 5-10 1 4 3 8 5 10" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-          <path d="M6 18h12" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
-        </svg>
-      );
-    case "claude-desktop":
-      // Claude-style: speech bubble with sparkle
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="2" width="20" height="20" rx="4" fill="#D97706" />
-          <path d="M12 6c-3.3 0-6 2.2-6 5 0 1.5.7 2.8 1.8 3.7L7 18l3.2-1.3c.6.2 1.2.3 1.8.3 3.3 0 6-2.2 6-5s-2.7-5-6-5z" fill="#fff" />
-        </svg>
-      );
-    case "vscode":
-      // VS Code-style: bracket icon
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="2" width="20" height="20" rx="4" fill="#007ACC" />
-          <path d="M15 6l-7 6 7 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-          <path d="M16 6v12" stroke="#fff" stroke-width="2" stroke-linecap="round" />
-        </svg>
-      );
-  }
+  const src = `${import.meta.env.BASE_URL}${CLIENT_LOGOS[id]}`;
+  const client = MCP_CLIENT_CONFIGS.find((c) => c.id === id);
+  return <img src={src} alt={client?.label ?? id} width="32" height="32" class="client-logo-img" />;
 }
 
 export function ExportLocationPicker({ mcpConfig, onFilenameChange }: ExportLocationPickerProps) {

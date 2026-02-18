@@ -1393,6 +1393,10 @@ textarea {
   line-height: 1;
 }
 
+.client-logo-img {
+  object-fit: contain;
+}
+
 .config-path-display {
   background: var(--color-gray-100);
   border: 1px solid var(--color-border);
@@ -1640,6 +1644,7 @@ textarea {
 @media (max-width: 768px) {
   .split-layout {
     flex-direction: column;
+    padding: 16px;
   }
 
   .preview-panel {
@@ -1647,8 +1652,57 @@ textarea {
     max-height: none;
   }
 
+  /* Header: wrap to two rows */
+  .header-content {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .header-left {
+    flex: 1 1 100%;
+    gap: 8px;
+  }
+
+  .header-left .header-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .header-text h1 {
+    font-size: 1.05rem;
+  }
+
+  .header-text .header-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .header-actions {
+    flex: 1 1 100%;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  /* Stepper: compact */
   .stepper {
     overflow-x: auto;
+    padding: 16px 8px;
+  }
+
+  .step-circle {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  .step-connector {
+    min-width: 10px;
+    max-width: 32px;
+    margin-top: 14px;
+  }
+
+  .stepper .step-label {
+    font-size: 0.6rem;
   }
 
   .mode-cards {
@@ -1669,5 +1723,71 @@ textarea {
 
   .client-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Phone screens */
+@media (max-width: 480px) {
+  .split-layout {
+    padding: 10px;
+    gap: 16px;
+  }
+
+  .header-content {
+    padding: 10px 12px;
+  }
+
+  .header-text h1 {
+    font-size: 0.95rem;
+  }
+
+  .header-text .header-subtitle {
+    display: none;
+  }
+
+  .stepper {
+    padding: 12px 4px;
+  }
+
+  .step-circle {
+    width: 26px;
+    height: 26px;
+    font-size: 0.7rem;
+  }
+
+  .step-connector {
+    min-width: 6px;
+    max-width: 20px;
+    margin-top: 12px;
+  }
+
+  .stepper .step-label {
+    font-size: 0.55rem;
+  }
+
+  .client-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .client-btn {
+    padding: 12px 8px;
+    font-size: 0.75rem;
+  }
+
+  .client-logo-img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .mode-card {
+    padding: 20px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .step h2 {
+    font-size: 1.1rem;
   }
 }
