@@ -763,6 +763,12 @@ textarea {
   flex-shrink: 0;
 }
 
+.tool-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
 .tool-checkbox--disabled {
   opacity: 0.4;
   pointer-events: none;
@@ -1440,6 +1446,61 @@ textarea {
 
 .tooltip-wrapper:hover .tooltip-bubble {
   display: block;
+}
+
+/* Subtle variant: smaller, lighter (?) for inline use next to tool names */
+.tooltip-icon--subtle {
+  width: 13px;
+  height: 13px;
+  font-size: 0.55rem;
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid #cbd5e1;
+}
+
+.tooltip-wrapper:hover .tooltip-icon--subtle {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Delayed variant: tooltip appears after a short pause to prevent misfires */
+.tooltip-wrapper--delayed .tooltip-bubble {
+  display: none;
+  transition: none;
+}
+
+.tooltip-wrapper--delayed:hover .tooltip-bubble {
+  display: none;
+  animation: tooltip-fade-in 0s 0.35s forwards;
+}
+
+@keyframes tooltip-fade-in {
+  to {
+    display: block;
+    opacity: 1;
+  }
+}
+
+/* Fallback for browsers that don't animate display — use opacity */
+.tooltip-wrapper--delayed .tooltip-bubble {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  transition-delay: 0s;
+}
+
+.tooltip-wrapper--delayed:hover .tooltip-bubble {
+  display: block;
+  opacity: 1;
+  transition-delay: 0.35s;
+  animation: none;
+}
+
+.tooltip-wrapper--delayed:not(:hover) .tooltip-bubble {
+  opacity: 0;
+  transition-delay: 0s;
 }
 
 /* ---------------------------------------------------------------------------
