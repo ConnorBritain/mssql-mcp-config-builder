@@ -46,8 +46,11 @@ export function AuditStep({ state, dispatch }: StepProps) {
   return (
     <div class="step step-audit">
       <h2>Audit Configuration</h2>
+      <p class="section-intro">
+        Track every query your AI assistant runs. Audit logs record who ran what, when, and on which database — useful for compliance, debugging, and oversight.
+      </p>
 
-      <FieldGroup label="Audit Level">
+      <FieldGroup label="Audit Level" tooltip="None: no logging. Basic: logs tool name, environment, and timestamp. Verbose: also logs full SQL queries and parameters.">
         <select
           value={env.auditLevel}
           onChange={(e) => updateEnvField("auditLevel", (e.target as HTMLSelectElement).value)}
@@ -60,7 +63,7 @@ export function AuditStep({ state, dispatch }: StepProps) {
 
       {isMulti && (
         <div class="scope-toggle">
-          <FieldGroup label="Sink Scope">
+          <FieldGroup label="Sink Scope" tooltip="Global sinks receive logs from all environments. Per-environment sinks let you route different environments to different destinations.">
             <div class="radio-group">
               <label>
                 <input
@@ -106,6 +109,12 @@ export function AuditStep({ state, dispatch }: StepProps) {
           onRemove={() => removeSink(i)}
         />
       ))}
+
+      {sinks.length === 0 && (
+        <div class="info-box">
+          An audit sink is a destination where logs are sent — a local file, a logging service like Syslog, or a cloud platform like Azure Monitor. Add one to start capturing activity.
+        </div>
+      )}
 
       <button type="button" class="btn btn-secondary" onClick={addSink}>
         + Add Audit Sink

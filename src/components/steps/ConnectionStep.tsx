@@ -10,7 +10,9 @@ export function ConnectionStep({ state, dispatch }: StepProps) {
     return (
       <div class="step step-connection">
         <h2>Environments</h2>
-        <p>Configure one or more database connections.</p>
+        <p class="section-intro">
+          Each environment is a named database connection that your AI assistant can use. Define one per database or server you want to query.
+        </p>
 
         {state.environments.map((env) => (
           <ConnectionCard
@@ -43,8 +45,11 @@ export function ConnectionStep({ state, dispatch }: StepProps) {
   return (
     <div class="step step-connection">
       <h2>Connection Details</h2>
+      <p class="section-intro">
+        Tell the MCP server how to reach your SQL Server instance. Your AI assistant will use these credentials to run queries on your behalf.
+      </p>
 
-      <FieldGroup label="Server" required>
+      <FieldGroup label="Server" required tooltip="The hostname or IP address of your SQL Server. For Azure, this is usually yourserver.database.windows.net.">
         <input
           type="text"
           value={env.server}
@@ -53,7 +58,7 @@ export function ConnectionStep({ state, dispatch }: StepProps) {
         />
       </FieldGroup>
 
-      <FieldGroup label="Database" required>
+      <FieldGroup label="Database" required tooltip="The name of the database to connect to. The AI assistant will only be able to query this database.">
         <input
           type="text"
           value={env.database}
@@ -62,7 +67,7 @@ export function ConnectionStep({ state, dispatch }: StepProps) {
         />
       </FieldGroup>
 
-      <FieldGroup label="Authentication Mode">
+      <FieldGroup label="Authentication Mode" tooltip="SQL: username/password login. Windows/NTLM: uses your Windows domain credentials. Azure AD: for Azure-hosted databases with Entra ID authentication.">
         <select
           value={env.authMode}
           onChange={(e) => update("authMode", (e.target as HTMLSelectElement).value)}
@@ -82,7 +87,7 @@ export function ConnectionStep({ state, dispatch }: StepProps) {
         dispatch={dispatch}
       />
 
-      <Collapsible title="Advanced Settings">
+      <Collapsible title="Advanced Settings" tooltip="Optional settings for custom ports, timeouts, and certificate handling. Most users can skip this.">
         <FieldGroup label="Port" helpText="Default: 1433">
           <input
             type="text"
@@ -107,7 +112,7 @@ export function ConnectionStep({ state, dispatch }: StepProps) {
             placeholder="15000"
           />
         </FieldGroup>
-        <FieldGroup label="Trust Server Certificate">
+        <FieldGroup label="Trust Server Certificate" tooltip="Enable this if your SQL Server uses a self-signed SSL certificate. Common in development environments.">
           <label class="toggle-label">
             <input
               type="checkbox"

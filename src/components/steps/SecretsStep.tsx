@@ -7,6 +7,9 @@ export function SecretsStep({ state, dispatch }: StepProps) {
   return (
     <div class="step step-secrets">
       <h2>Secret Providers</h2>
+      <p class="section-intro">
+        Keep passwords and API keys out of your config files. Secret providers let you store credentials securely and reference them with placeholders like <code>{"${secret:DB_PASSWORD}"}</code>.
+      </p>
 
       <div class="info-box">
         {"Use ${secret:NAME} syntax in password fields to reference secrets from configured providers."}

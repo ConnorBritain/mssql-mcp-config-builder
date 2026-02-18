@@ -1,13 +1,15 @@
 import { useState } from "preact/hooks";
 import { ComponentChildren } from "preact";
+import { Tooltip } from "./Tooltip";
 
 interface CollapsibleProps {
   title: string;
+  tooltip?: string;
   defaultOpen?: boolean;
   children: ComponentChildren;
 }
 
-export function Collapsible({ title, defaultOpen = false, children }: CollapsibleProps) {
+export function Collapsible({ title, tooltip, defaultOpen = false, children }: CollapsibleProps) {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
@@ -18,7 +20,10 @@ export function Collapsible({ title, defaultOpen = false, children }: Collapsibl
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        <span>{title}</span>
+        <span>
+          {title}
+          {tooltip && <Tooltip text={tooltip} />}
+        </span>
         <span class={`chevron${open ? " chevron--open" : ""}`}>&#9654;</span>
       </button>
       {open && <div class="collapsible-body">{children}</div>}

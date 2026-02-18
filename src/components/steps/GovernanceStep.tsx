@@ -39,6 +39,9 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
   return (
     <div class="step step-governance">
       <h2>Governance</h2>
+      <p class="section-intro">
+        Control what your AI assistant is allowed to do. Set read-only mode, limit which tools are available, and restrict access to specific databases or schemas.
+      </p>
 
       {state.mode === "multi" && (
         <FieldGroup label="Configure for">
@@ -54,7 +57,7 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
         </FieldGroup>
       )}
 
-      <FieldGroup label="Read Only">
+      <FieldGroup label="Read Only" tooltip="When enabled, the AI assistant can only read data — all INSERT, UPDATE, DELETE, and DDL operations are blocked regardless of package tier.">
         <label class="toggle-label">
           <input
             type="checkbox"
@@ -65,7 +68,7 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
         </label>
       </FieldGroup>
 
-      <FieldGroup label="Max Rows Default" helpText="Maximum rows returned by read_data queries">
+      <FieldGroup label="Max Rows Default" helpText="Maximum rows returned by read_data queries" tooltip="Limits the number of rows returned by any SELECT query. Prevents the AI from accidentally pulling entire large tables. Default is 1000 if not set.">
         <input
           type="number"
           value={env.maxRowsDefault}
@@ -74,7 +77,7 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
         />
       </FieldGroup>
 
-      <FieldGroup label="Require Approval">
+      <FieldGroup label="Require Approval" tooltip="When enabled, the AI assistant must ask for your explicit confirmation before running any INSERT, UPDATE, or DELETE operation.">
         <label class="toggle-label">
           <input
             type="checkbox"
@@ -88,7 +91,7 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
         </label>
       </FieldGroup>
 
-      <Collapsible title="Access Control">
+      <Collapsible title="Access Control" tooltip="Restrict which databases and schemas the AI assistant can see. Useful for hiding sensitive tables or limiting scope to specific areas.">
         <FieldGroup label="Access Level">
           <div class="radio-group">
             {ACCESS_LEVEL_OPTIONS.map((o) => (
@@ -128,7 +131,7 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
         )}
       </Collapsible>
 
-      <Collapsible title="Tool Restrictions">
+      <Collapsible title="Tool Restrictions" tooltip="Fine-tune exactly which MCP tools the AI assistant can use. For example, allow only read_data and describe_table, or block drop_table.">
         <div class="radio-group">
           <label>
             <input
@@ -175,7 +178,7 @@ export function GovernanceStep({ state, dispatch }: StepProps) {
         )}
       </Collapsible>
 
-      <Collapsible title="Schema Access">
+      <Collapsible title="Schema Access" tooltip="Control access at the schema.table level using wildcard patterns. For example, 'dbo.*' allows all tables in the dbo schema.">
         <FieldGroup
           label="Allowed Schemas"
           helpText="Comma-separated. Supports wildcards: dbo.*, sales.Orders, *.Users"
