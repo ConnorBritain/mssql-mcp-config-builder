@@ -158,40 +158,42 @@ export function ConnectionStep({ state, dispatch }: StepProps) {
         dispatch={dispatch}
       />
 
-      <Collapsible title="Advanced Settings" tooltip="Optional settings for custom ports, timeouts, and certificate handling. Most users can skip this.">
-        <FieldGroup label="Port" helpText="Default: 1433">
-          <input
-            type="text"
-            value={env.port}
-            onInput={(e) => update("port", (e.target as HTMLInputElement).value)}
-            placeholder="1433"
-          />
-        </FieldGroup>
-        <TimeoutField
-          label="Connection Timeout"
-          tooltip="How long to wait when establishing a connection before giving up. Increase if connecting to a remote or slow server."
-          value={env.connectionTimeout}
-          placeholder="15000"
-          onUpdate={(v) => update("connectionTimeout", v)}
-        />
-        <TimeoutField
-          label="Request Timeout"
-          tooltip="How long to wait for a query to finish before timing out. Increase for complex or long-running queries."
-          value={env.requestTimeout}
-          placeholder="15000"
-          onUpdate={(v) => update("requestTimeout", v)}
-        />
-        <FieldGroup label="Trust Server Certificate" tooltip="Enable this if your SQL Server uses a self-signed SSL certificate. Common in development environments.">
-          <label class="toggle-label">
+      {!state.simpleMode && (
+        <Collapsible title="Advanced Settings" tooltip="Optional settings for custom ports, timeouts, and certificate handling. Most users can skip this.">
+          <FieldGroup label="Port" helpText="Default: 1433">
             <input
-              type="checkbox"
-              checked={env.trustServerCertificate}
-              onChange={(e) => update("trustServerCertificate", (e.target as HTMLInputElement).checked)}
+              type="text"
+              value={env.port}
+              onInput={(e) => update("port", (e.target as HTMLInputElement).value)}
+              placeholder="1433"
             />
-            Trust the server certificate (useful for self-signed certs)
-          </label>
-        </FieldGroup>
-      </Collapsible>
+          </FieldGroup>
+          <TimeoutField
+            label="Connection Timeout"
+            tooltip="How long to wait when establishing a connection before giving up. Increase if connecting to a remote or slow server."
+            value={env.connectionTimeout}
+            placeholder="15000"
+            onUpdate={(v) => update("connectionTimeout", v)}
+          />
+          <TimeoutField
+            label="Request Timeout"
+            tooltip="How long to wait for a query to finish before timing out. Increase for complex or long-running queries."
+            value={env.requestTimeout}
+            placeholder="15000"
+            onUpdate={(v) => update("requestTimeout", v)}
+          />
+          <FieldGroup label="Trust Server Certificate" tooltip="Enable this if your SQL Server uses a self-signed SSL certificate. Common in development environments.">
+            <label class="toggle-label">
+              <input
+                type="checkbox"
+                checked={env.trustServerCertificate}
+                onChange={(e) => update("trustServerCertificate", (e.target as HTMLInputElement).checked)}
+              />
+              Trust the server certificate (useful for self-signed certs)
+            </label>
+          </FieldGroup>
+        </Collapsible>
+      )}
     </div>
   );
 }

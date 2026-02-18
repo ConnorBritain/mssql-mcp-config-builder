@@ -242,4 +242,15 @@ export const WIZARD_STEPS = [
   { key: "review", label: "Review & Export" },
 ] as const;
 
+export const SIMPLE_WIZARD_STEPS = [
+  { key: "mode", label: "Mode & Package" },
+  { key: "connection", label: "Connection" },
+  { key: "review", label: "Review & Export" },
+] as const;
+
 export const TOTAL_STEPS = WIZARD_STEPS.length;
+
+/** Returns the visible wizard steps based on simple/advanced mode. */
+export function getVisibleSteps(simpleMode: boolean) {
+  return simpleMode ? SIMPLE_WIZARD_STEPS : WIZARD_STEPS;
+}

@@ -1,5 +1,6 @@
 import type { StepProps } from "../../app";
 import { TIER_OPTIONS } from "../../state/defaults";
+import { Tooltip } from "../shared/Tooltip";
 
 export function ModeSelect({ state, dispatch }: StepProps) {
   function selectMode(mode: "quick" | "multi") {
@@ -9,7 +10,23 @@ export function ModeSelect({ state, dispatch }: StepProps) {
 
   return (
     <div class="step step-mode">
-      <h2>Choose Setup Mode</h2>
+      <div class="mode-heading">
+        <h2>Choose Setup Mode</h2>
+        <div class="mode-toggle-group">
+          <label class={`mode-toggle${!state.simpleMode ? " mode-toggle--advanced" : ""}`}>
+            <input
+              type="checkbox"
+              checked={!state.simpleMode}
+              onChange={(e) => dispatch({ type: "SET_SIMPLE_MODE", value: !(e.target as HTMLInputElement).checked })}
+            />
+            <span class="mode-toggle-track">
+              <span class="mode-toggle-label mode-toggle-label--simple">Simple</span>
+              <span class="mode-toggle-label mode-toggle-label--advanced">Advanced</span>
+            </span>
+          </label>
+          <Tooltip text="Simple mode is a streamlined 3-step flow (Mode, Connection, Review) — ideal for report writers, analysts, or anyone who just needs to connect and query. Advanced mode unlocks all 6 steps with full governance, audit logging, secrets management, and access controls — best for DBAs, software engineers, data architects, and sysadmins managing enterprise environments." />
+        </div>
+      </div>
       <p>Select how you want to configure your MSSQL MCP server.</p>
 
       <div class="mode-cards">

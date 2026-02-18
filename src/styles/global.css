@@ -500,6 +500,87 @@ textarea {
 }
 
 /* ---------------------------------------------------------------------------
+   Mode Heading + Simple/Advanced Toggle
+   --------------------------------------------------------------------------- */
+
+.mode-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.mode-heading h2 {
+  margin: 0;
+}
+
+.mode-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Prominent segmented toggle */
+.mode-toggle {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.mode-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mode-toggle-track {
+  display: inline-flex;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid #93c5fd;
+  background: var(--color-surface);
+  transition: border-color 0.2s ease;
+}
+
+.mode-toggle--advanced .mode-toggle-track {
+  border-color: #c084fc;
+}
+
+.mode-toggle-label {
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  user-select: none;
+  color: var(--color-text-secondary);
+}
+
+/* Simple active (checkbox unchecked = simple mode) */
+.mode-toggle:not(.mode-toggle--advanced) .mode-toggle-label--simple {
+  background: linear-gradient(135deg, #93c5fd, #86efac);
+  color: #1e293b;
+}
+
+/* Advanced active (checkbox checked = advanced mode) */
+.mode-toggle--advanced .mode-toggle-label--advanced {
+  background: linear-gradient(135deg, #c084fc, #93c5fd);
+  color: #1e293b;
+}
+
+/* Hover on inactive side */
+.mode-toggle:not(.mode-toggle--advanced) .mode-toggle-label--advanced:hover {
+  color: var(--color-text);
+  background: rgba(192, 132, 252, 0.1);
+}
+
+.mode-toggle--advanced .mode-toggle-label--simple:hover {
+  color: var(--color-text);
+  background: rgba(147, 197, 253, 0.1);
+}
+
+/* ---------------------------------------------------------------------------
    Mode Cards
    --------------------------------------------------------------------------- */
 

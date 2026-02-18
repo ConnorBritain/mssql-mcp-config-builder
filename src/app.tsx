@@ -6,8 +6,7 @@ import {
   DEFAULT_APP_STATE,
   importConfig,
   mergeEnvironmentsIntoState,
-  WIZARD_STEPS,
-  TOTAL_STEPS,
+  getVisibleSteps,
 } from "./state";
 import { Header } from "./components/layout/Header";
 import { Stepper } from "./components/layout/Stepper";
@@ -57,20 +56,23 @@ export function App() {
     dispatch({ type: "SET_IMPORT_DIALOG_OPEN", open: false });
   }
 
+  const visibleSteps = getVisibleSteps(state.simpleMode);
+
   function renderStep() {
     const props: StepProps = { state, dispatch };
-    switch (state.currentStep) {
-      case 0:
+    const stepKey = visibleSteps[state.currentStep]?.key;
+    switch (stepKey) {
+      case "mode":
         return <ModeSelect {...props} />;
-      case 1:
+      case "connection":
         return <ConnectionStep {...props} />;
-      case 2:
+      case "governance":
         return <GovernanceStep {...props} />;
-      case 3:
+      case "audit":
         return <AuditStep {...props} />;
-      case 4:
+      case "secrets":
         return <SecretsStep {...props} />;
-      case 5:
+      case "review":
         return <ReviewStep {...props} />;
       default:
         return null;
@@ -78,7 +80,7 @@ export function App() {
   }
 
   const isFirstStep = state.currentStep === 0;
-  const isLastStep = state.currentStep === TOTAL_STEPS - 1;
+  const isLastStep = state.currentStep === visibleSteps.length - 1;
 
   return (
     <div>
@@ -89,7 +91,7 @@ export function App() {
       />
       <SplitLayout preview={<OutputPanel state={state} />}>
         <Stepper
-          steps={WIZARD_STEPS.map((s) => ({ key: s.key, label: s.label }))}
+          steps={visibleSteps.map((s) => ({ key: s.key, label: s.label }))}
           currentStep={state.currentStep}
           onStepClick={(step) => dispatch({ type: "SET_STEP", step })}
         />

@@ -11,7 +11,7 @@ import type {
   Tier,
   WizardMode,
 } from "./types";
-import { createDefaultEnvironment } from "./defaults";
+import { createDefaultEnvironment, getVisibleSteps } from "./defaults";
 
 // ---------------------------------------------------------------------------
 // Action types
@@ -84,17 +84,29 @@ export function appReducer(state: AppState, action: Action): AppState {
     case "SET_MODE":
       return { ...state, mode: action.mode };
 
-    case "SET_STEP":
-      return { ...state, currentStep: clamp(action.step, 0, 5) };
+    case "SET_STEP": {
+      const max = getVisibleSteps(state.simpleMode).length - 1;
+      return { ...state, currentStep: clamp(action.step, 0, max) };
+    }
 
-    case "NEXT_STEP":
-      return { ...state, currentStep: clamp(state.currentStep + 1, 0, 5) };
+    case "NEXT_STEP": {
+      const max = getVisibleSteps(state.simpleMode).length - 1;
+      return { ...state, currentStep: clamp(state.currentStep + 1, 0, max) };
+    }
 
-    case "PREV_STEP":
-      return { ...state, currentStep: clamp(state.currentStep - 1, 0, 5) };
+    case "PREV_STEP": {
+      const max = getVisibleSteps(state.simpleMode).length - 1;
+      return { ...state, currentStep: clamp(state.currentStep - 1, 0, max) };
+    }
 
-    case "SET_SIMPLE_MODE":
-      return { ...state, simpleMode: action.value };
+    case "SET_SIMPLE_MODE": {
+      const newMax = getVisibleSteps(action.value).length - 1;
+      return {
+        ...state,
+        simpleMode: action.value,
+        currentStep: clamp(state.currentStep, 0, newMax),
+      };
+    }
 
     case "SET_TIER":
       return { ...state, tier: action.tier };
